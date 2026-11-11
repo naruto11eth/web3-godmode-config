@@ -12,8 +12,8 @@ This codebase will outlive you. Every shortcut becomes someone else's burden. Fi
 ## Phase 0 — Intent Gate (EVERY message)
 
 ### Key Triggers (check BEFORE classification):
-- External library/source mentioned -> fire `librarian` background
-- 2+ modules involved -> fire `explore` background
+- External library/source mentioned -> fire `open-source-librarian` background
+- 2+ modules involved -> fire `Explore` background
 - GitHub mention (@mention in issue/PR) -> Full cycle: investigate -> implement -> create PR
 - "Look into" + "create PR" -> Full implementation cycle expected
 
@@ -40,8 +40,8 @@ This codebase will outlive you. Every shortcut becomes someone else's burden. Fi
 | UI components | `/frontend-design` | compound |
 | PR review | `/pr-review-toolkit:review-pr` | compound |
 | Code review | `/code-review:code-review` | compound |
-| Git commit | `/commit-commands:commit` | skill |
-| Commit + PR | `/commit-commands:commit-push-pr` | skill |
+| Git commit | `/gitbahn:realistic` | gitbahn |
+| Commit + PR | `/gitbahn:realistic` then `gh pr create` | gitbahn |
 | Complex planning | `/planning-with-files` | godmode |
 | Unclear requirements | `/interview` | godmode |
 
@@ -51,7 +51,7 @@ This codebase will outlive you. Every shortcut becomes someone else's burden. Fi
 |------|--------|--------|
 | **Trivial** | Single file, known location | Direct tools (unless Key Trigger applies) |
 | **Explicit** | Specific file/line, clear command | Execute directly |
-| **Exploratory** | "How does X work?", "Find Y" | Fire explore (1-3) + tools in parallel |
+| **Exploratory** | "How does X work?", "Find Y" | Fire Explore (1-3) + tools in parallel |
 | **Open-ended** | "Improve", "Refactor", "Add feature" | Assess codebase first |
 | **GitHub Work** | Issue mention, "look into X and PR" | Full cycle: investigate -> implement -> verify -> PR |
 | **Ambiguous** | Unclear scope | Ask ONE clarifying question |
@@ -101,9 +101,9 @@ Before following existing patterns, assess whether they're worth following.
 | Tool | Cost | When |
 |------|------|------|
 | `grep`, `glob` | FREE | Scope clear, no assumptions |
-| `explore` agent | FREE | Multiple angles, unfamiliar modules, cross-layer |
-| `librarian` agent | CHEAP | External docs, OSS reference, unfamiliar packages |
-| `oracle` agent | EXPENSIVE | Architecture, debugging after 2+ failures |
+| `Explore` agent | FREE | Multiple angles, unfamiliar modules, cross-layer |
+| `open-source-librarian` agent | CHEAP | External docs, OSS reference, unfamiliar packages |
+| `general-purpose` agent | EXPENSIVE | Architecture, debugging after 2+ failures |
 
 ### Explore = Contextual Grep (internal codebase). Librarian = Reference Grep (external docs/OSS).
 
@@ -125,9 +125,9 @@ STOP when: enough context to proceed, same info recurring, 2 iterations with no 
 
 | Domain | Delegate To | Trigger |
 |--------|-------------|---------|
-| Explore | `explore` agent | Find codebase patterns |
-| Librarian | `librarian` agent | External docs/OSS |
-| Documentation | `document-writer` agent | README, API docs |
+| Explore | `Explore` agent | Find codebase patterns |
+| Librarian | `open-source-librarian` agent | External docs/OSS |
+| Documentation | `tech-docs-writer` agent | README, API docs |
 | TS review | `kieran-typescript-reviewer` | compound |
 | Security scan | `security-sentinel` | compound |
 | Performance | `performance-oracle` | compound |
@@ -176,8 +176,8 @@ AFTER delegation completes, VERIFY: works as expected, follows codebase patterns
 1. **STOP** all edits
 2. **REVERT** to last known working state
 3. **DOCUMENT** what was attempted
-4. **CONSULT** Oracle with full context
-5. If Oracle fails -> **ASK USER**
+4. **CONSULT** the `general-purpose` agent with full context
+5. If that fails -> **ASK USER**
 
 Never: leave code broken, continue hoping, delete failing tests.
 </Failure_Recovery>
@@ -271,6 +271,7 @@ FAILURE TO USE TODOS ON NON-TRIVIAL TASKS = INCOMPLETE WORK.
 |------------|---------------|
 | `as any`, `@ts-ignore`, `@ts-expect-error` | Never |
 | Commit without explicit request | Never |
+| Co-Authored-By claude in commits | Never — use `/gitbahn:realistic` with realistic timestamps |
 | Speculate about unread code | Never |
 | Leave code broken after failures | Never |
 | Empty catch blocks `catch(e) {}` | Never |
@@ -278,4 +279,16 @@ FAILURE TO USE TODOS ON NON-TRIVIAL TASKS = INCOMPLETE WORK.
 | Shotgun debugging | Never |
 | `tx.origin` for auth | Never |
 | JS `number` for token amounts | Never |
+| Read, cat, or access `.env` files | Never — they contain secrets |
+<Git_Commits>
+## Git Commit Rules
+
+DEFAULT: Use `/gitbahn:realistic` for ALL commits unless user specifies otherwise.
+- NO Co-Authored-By Claude headers
+- Realistic timestamps with 20min-1hr gaps between commits
+- Random realistic seconds (14:32:47 not 14:00:00)
+- Split by dependency order: config → utils → models → services → tests → docs
+- Conventional commit messages (feat/fix/refactor/chore)
+</Git_Commits>
+
 </Constraints>
