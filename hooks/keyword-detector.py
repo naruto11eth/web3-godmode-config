@@ -32,7 +32,7 @@ Workflow:
     },
 
     "search": {
-        "pattern": r"\b(search|find|locate|where\s+is)\b",
+        "pattern": r"\b(ultrasearch|search\s+mode|deep\s+search)\b",
         "context": """[SEARCH MODE ACTIVATED]
 
 Maximize search thoroughness:
@@ -55,7 +55,7 @@ Report:
     },
 
     "analyze": {
-        "pattern": r"\b(analyze|investigate|debug|diagnose)\b",
+        "pattern": r"\b(analyze\s+mode|deep\s+(analy|investigat)|diagnose\s+mode)\b",
         "context": """[ANALYSIS MODE ACTIVATED]
 
 Deep investigation protocol:
@@ -96,7 +96,7 @@ Before acting:
 
     # New modes
     "refactor": {
-        "pattern": r"\b(refactor|restructure|reorganize|clean\s*up)\b",
+        "pattern": r"\b(refactor\s+mode|restructure\s+mode)\b",
         "context": """[REFACTOR MODE ACTIVATED]
 
 Refactoring discipline:
@@ -115,7 +115,7 @@ Workflow:
     },
 
     "review": {
-        "pattern": r"\b(review\s+(this|my|the|code|pr)|code\s*review)\b",
+        "pattern": r"\b(review\s+mode|code\s*review|pr\s+review)\b",
         "context": """[REVIEW MODE ACTIVATED]
 
 Route to appropriate reviewer:
@@ -136,7 +136,7 @@ Review checklist:
     },
 
     "test": {
-        "pattern": r"\b(write\s+tests?|add\s+tests?|test\s+this|testing)\b",
+        "pattern": r"\b(test\s+mode)\b",
         "context": """[TEST MODE ACTIVATED]
 
 Testing standards:
@@ -160,7 +160,7 @@ For React:
     },
 
     "optimize": {
-        "pattern": r"\b(optimize|performance|speed\s*up|slow|gas\s*optim)\b",
+        "pattern": r"\b(optimize\s+mode|perf\s+mode|gas\s*optim)\b",
         "context": """[OPTIMIZE MODE ACTIVATED]
 
 Performance analysis:
@@ -183,7 +183,7 @@ For **Rust**:
     },
 
     "secure": {
-        "pattern": r"\b(security|audit|vulnerab|exploit|attack|reentrancy)\b",
+        "pattern": r"\b(security\s+mode|audit\s+mode)\b",
         "context": """[SECURITY MODE ACTIVATED]
 
 Security analysis:
@@ -208,7 +208,7 @@ For **Web3 Frontend**:
     },
 
     "deploy": {
-        "pattern": r"\b(deploy|deployment|mainnet|testnet|going\s+live)\b",
+        "pattern": r"\b(deploy\s+mode|deployment\s+mode)\b",
         "context": """[DEPLOY MODE ACTIVATED]
 
 Deployment protocol:
@@ -254,7 +254,7 @@ def main():
             sys.exit(0)
 
     # Skill reminder on session-start-like prompts
-    if re.search(r"\b(start|begin|let'?s\s+go|ready|new\s+project)\b", prompt):
+    if re.search(r"\b(which\s+skills|list\s+skills|available\s+skills|skill\s+reminder)\b", prompt):
         reminder = """[SKILL REMINDER]
 Available skills for this session: /rigorous-coding, /solidity-security, /rust-patterns,
 /web3-frontend, /web3-foundry, /web3-hardhat, /web3-privy, /smart-contract-audit,
